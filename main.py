@@ -65,6 +65,7 @@ def graph(the_data, column):
     
     fig.update_layout(margin={'r': 0, 'l': 0, 'b': 0}, dragmode=False)
     return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    
-    
-app.run(debug=True)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
