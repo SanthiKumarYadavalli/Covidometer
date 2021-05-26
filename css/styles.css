@@ -1,0 +1,101 @@
+body {
+  text-align: center;
+}
+
+h1 {
+  color: #393E46;
+  font-family: 'Montserrat-Bold';
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-family: 'Montserrat-Medium';
+  font-size: 2rem;
+}
+
+/* Containers */
+#worldwide-data {
+  background-color: #EEEEEE;
+}
+
+.total-cases {
+  margin-top: 35%;
+}
+
+.data-box {
+  margin: 12% 5%;
+}
+
+.graph-container {
+  overflow-x: auto;
+}
+
+#table-section {
+  margin-top: 15px;
+  text-align: left;
+}
+
+/* Data Section */
+.title {
+  color: #222831;
+  font-family: 'Ubuntu';
+  text-align: left;
+}
+
+.total-cases-title {
+  font-size: 3rem;
+}
+
+.total-cases-num {
+  color: #00ADB5;
+  font-size: 2.5rem;
+}
+
+.active-cases-num {
+  color: #867AE9;
+}
+
+.deaths-num {
+  color: #F55C47;
+}
+
+.recovered-num {
+  color: #4AA96C;
+}
+
+/* Table Section */
+th {
+  position: sticky;
+  top: 0;
+}
+
+/* Footer */
+.footer {
+  background-color: #00ADB5;
+  padding: 1rem;
+}
+
+
+/* Loader */
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  background-color: #EEEEEE;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  animation: spin 2s forwards infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
