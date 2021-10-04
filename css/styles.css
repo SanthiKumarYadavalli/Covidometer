@@ -28,10 +28,6 @@ h3 {
   margin: 12% 5%;
 }
 
-.graph-container {
-  overflow-x: auto;
-}
-
 #table-section {
   margin-top: 15px;
   text-align: left;

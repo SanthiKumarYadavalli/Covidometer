@@ -3,11 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <!-- open graph tags for preview -->
   <meta property="og:title" content="Covidometer" />
   <meta property="og:description" content="You will get covid-19 live data worldwide" />
   <meta property="og:image" content="https://image.flaticon.com/icons/png/512/3096/3096582.png" />
-  <!-- For responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Covidometer</title>
@@ -32,10 +30,6 @@
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <!-- Plotly -->
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
 </head>
 
 <body>
@@ -75,18 +69,6 @@
     
   </section>
 
-
-  <section id="graph-section">
-    <div class="container-fluid graph-container">
-        <div id="graph" class="graph"></div>
-    </div>
-    <script type="text/javascript">
-        var graph = {{ graphJSON | safe }};
-        Plotly.plot('graph',graph, {});   
-    </script>
-  </section>
-  
-
   <section id="table-section">
     <div class="countries-table">
       <table class="table table-bordered table-hover table-responsive-lg">
@@ -97,26 +79,28 @@
         </thead>
 
         {% for i in range(countries|count) %}
-            {% if countries[i]['confirmed'] == countries[i]['recovered'] %}
-                {% set row_class = 'table-success' %}
-            {% elif countries[i]['active'] == 0 %}
-                {% set row_class = 'table-secondary' %}
-            {% endif %}
+          {% set country = countries[i] %}
 
-            <tr class="{{ row_class }}">
-              <td>{{ i+1 }}</td>
-              <td>{{ countries[i]['country'] }}</td>
-              {% for key in keys %}
+          {% if country['cases'] == country['recovered'] %}
+              {% set row_class = 'table-success' %}
+          {% elif country['active'] == 0 %}
+              {% set row_class = 'table-secondary' %}
+          {% endif %}
 
-                  {% if key == 'new_cases' and countries[i][key] %}
-                      {% set cell_class = 'table-warning' %}
-                  {% elif key == 'new_deaths' and countries[i][key] %}
-                      {% set cell_class = 'table-danger' %}
-                  {% endif %}
+          <tr class="{{ row_class }}">
+            <td>{{ i+1 }}</td>
+            <td>{{ country['country'] }}</td>
+            {% for key in keys %}
 
-                  <td class="{{ cell_class }}">{{ "{:,}".format(countries[i][key]) }}</td>
-              {% endfor %}
-            </tr>
+                {% if key == 'todayCases' and country[key] %}
+                    {% set cell_class = 'table-warning' %}
+                {% elif key == 'todayDeaths' and country[key] %}
+                    {% set cell_class = 'table-danger' %}
+                {% endif %}
+
+                <td class="{{ cell_class }}">{{ "{:,}".format(country[key]) }}</td>
+            {% endfor %}
+          </tr>
         {% endfor %}
 
       </table>
@@ -125,10 +109,7 @@
         <p><span style="background-color: #8fd19e; padding: 5px;">Green</span>: all cases have recovered from covid</p>
         <p><span style="background-color: #d6d8db; padding: 5px;">Grey</span>: all cases have had an outcome(there are no active cases)</p>
     </div>
-    <span>Data From </span><a href="https://www.worldometers.info/coronavirus/" target="_blank">Worldometers</a>
   </section>
-
-  
 
   <div class="footer">
     <h4>Covid<i class="fas fa-virus"></i>meter</h4>
@@ -144,7 +125,6 @@
         $(".loader-wrapper").fadeOut("slow");
       });
   </script>
-
 
 </body>
 </html>
