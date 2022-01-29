@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import requests
-from config import abstract_api_key
+import os
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -41,11 +41,8 @@ def get_users_location_data():
     else:
         ip_address = request.remote_addr
         
-    if ip_address == "127.0.0.1":
-        ip_address = "103.90.156.214"
-        
     response = requests.get(ipgeolocation_api_endpoint, params={
-        'api_key': abstract_api_key,
+        'api_key': os.environ.get("IP_API_KEY"),
         'ip_address': ip_address,
         'fields': 'country,country_code,flag'
     })
