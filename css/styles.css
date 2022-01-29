@@ -1,99 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&family=Comfortaa:wght@400;500;600&family=Dongle:wght@300;400&family=Nunito:wght@600&display=swap');
+
+:root {
+  --white: #EEEEEE;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
+  background-color: var(--white);
+  font-family: 'Rubik', sans-serif;
+  font-size: 20px;
+  color: #303841;
+}
+
+h2 {
+  margin-left: 20px;
+  font-size: 1rem;
+  color: #FF5722;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.countries {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 50px;
+}
+
+/* NAVBAR */
+
+.navbar {
+  background-color: #00ADB5;
+  color: var(--white);
+  margin: 0;
+  padding-left: 20px;
+  font-family: 'Dongle','Arial',sans-serif;
+  font-size: 30px;
+}
+
+/* Stats */
+
+.stats {
+  margin-top: 20px;
+}
+.deck {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  margin: 20px;
+  border-radius: 20px;
+  padding: 20px;
+  flex-basis: 300px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.card h4 {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.5rem;
+}
+
+.total-cases h3 {
+background-image: linear-gradient(72deg, rgba(43, 46, 224, 0.15) 0%,rgba(26, 218, 182, 0.15) 100%),linear-gradient(352deg, rgb(50, 52, 221),rgb(60, 239, 241));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.active-cases h3 {
+background-image: linear-gradient(180deg, rgb(243, 114, 209) 0%,rgb(44, 19, 241) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.recovered h3 {
+background-image: linear-gradient(365deg, rgb(37, 163, 10),rgb(138, 191, 54),rgb(171,223,23));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.deaths h3 {
+background-image: linear-gradient(0deg, rgb(94, 5, 4),rgb(253, 19, 61));
+ -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Country card */
+
+.user-country {
+  width: 30%;
+}
+
+.user-country .card {
   text-align: center;
 }
 
-h1 {
-  color: #393E46;
-  font-family: 'Montserrat';
-  font-size: 2.5rem;
-  font-weight: 700;
+.user-country h3 {
+  border-bottom: 1px solid;
+  font-family: 'Montserrat', 'Arial', sans-serif;
 }
 
-h3 {
-  font-family: 'Montserrat';
-  font-size: 2rem;
-  font-weight: 500;
-}
-
-/* Containers */
-#worldwide-data {
-  background-color: #EEEEEE;
-}
-
-.total-cases {
-  margin-top: 35%;
-}
-
-.data-box {
-  margin: 12% 5%;
-}
-
-#table-section {
-  margin-top: 15px;
+.user-country p {
+  margin: 10px;
   text-align: left;
 }
 
-/* Data Section */
-.title {
-  color: #222831;
-  font-family: 'Ubuntu';
-  text-align: left;
+.user-country .title {
+  color: #344CB7;
+  font-family: 'Montserrat';
+  font-weight: bold;
 }
 
-.total-cases-title {
-  font-size: 3rem;
+.flag {
+  width: 60%;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
 
-.total-cases-num {
-  color: #00ADB5;
-  font-size: 2.5rem;
+/* Table */
+
+.countries-table {
+  height: 600px;
+  position: relative;
+  width: 70%;
 }
 
-.active-cases-num {
-  color: #867AE9;
+.countries-table .card {
+  padding: 0 20px 20px;
+  height: 90%;
+  width: calc(100% - 40px);
+  overflow: auto;
 }
 
-.deaths-num {
-  color: #F55C47;
+.countries-table table {
+  border-collapse: separate;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  font-size: 0.9em;
 }
 
-.recovered-num {
+.countries-table thead{
+  border-bottom: 1px solid;
+  background-color: var(--white);
+  margin-top: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0%;
+}
+
+.countries-table th,td {
+  padding: 10px;
+}
+
+.countries-table th {
+  padding-top: 30px;
+  border-bottom: 1px solid;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+.recovered-cell {
   color: #4AA96C;
 }
 
-/* Table Section */
-th {
-  position: sticky;
-  top: 0;
+.deaths-cell {
+  color: #F55C47;
 }
 
-/* Footer */
-.footer {
-  background-color: #00ADB5;
-  padding: 1rem;
+.countries-table tr td:nth-child(2) {
+  padding-left: 0;
+  text-align: left;
 }
 
+/* LOADING SCREEN */
 
-/* Loader */
-.loader-wrapper {
-  width: 100%;
-  height: 100%;
+#loading {
+  background-color: var(--white);
   position: absolute;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   display: flex;
-  background-color: #EEEEEE;
-  text-align: center;
   justify-content: center;
   align-items: center;
+  color: #303841;
 }
 
-.loader {
-  animation: spin 2s forwards infinite;
+#loading-logo {
+	-webkit-animation: rotation 2s infinite ease-in-out;
+  animation: rotation 2s infinite ease-in-out;
 }
 
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
+@-webkit-keyframes rotation {
+		from {
+				-webkit-transform: rotate(0deg);
+		}
+		to {
+				-webkit-transform: rotate(359deg);
+		}
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  .deck {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .deck {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card {
+    flex-basis: auto;
+    width: 90%;
+  }
+
+  .countries {
+    flex-direction: column;
+  }
+
+  .user-country {
+    width: 95%;
+  }
+
+  .countries-table {
+    width: 95%;
+  }
+
 }

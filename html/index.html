@@ -1,130 +1,101 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta property="og:title" content="Covidometer" />
   <meta property="og:description" content="You will get covid-19 live data worldwide" />
-  <meta property="og:image" content="https://image.flaticon.com/icons/png/512/3096/3096582.png" />
+  <meta property="og:image" content="https://image.freepik.com/free-vector/virus-magnifier-scientific-vector-icon-disease-laboratory-research-study-analysis-concept-icon_261737-399.jpg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Covidometer</title>
-
-  <!-- Icon -->
-  <link rel="icon" href="https://image.flaticon.com/icons/png/512/3096/3096582.png">
-
-  <!-- Css Stylesheets -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/aea2e7a38a.js" crossorigin="anonymous"></script>
-
-  <!-- Bootstrap Scripts -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-
-  <!-- jQuery -->
+  <link rel="icon" href="images/virus.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Covidometer</title>
 </head>
-
 <body>
-  <section id="worldwide-data">
-    <div class="container-fluid">
-      <h1 class="title">Covid<i class="fas fa-virus"></i>meter</h1>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="total-cases">
-            <h1 class="total-cases-title">Total Cases</h1>
-            <h3 class="total-cases-num">{{ total_cases }}</h3>
+  <div id="loading">
+    <div id="loading-logo">
+      <i class="fas fa-virus fa-3x"></i>
+    </div>
+  </div>
+  <nav class="navbar">
+    <div class="container">
+      <h1>Covidometer</h1>
+    </div>
+  </nav>
+  <section class="container">
+    <div class="all-cards">
+      <div class="stats">
+        <h2>World Data <i class="fas fa-globe"></i></h2>
+        <div class="deck">
+          <div class="card total-cases">
+            <h3>Total Cases</i></h3>
+            <h4>{{ world_data['cases'] }}</h4>
+          </div>
+          <div class="card active-cases">
+            <h3>Active Cases</h3>
+            <h4>{{ world_data['active'] }}</h4>
+          </div>
+          <div class="card recovered">
+            <h3>Recovered</h3>
+            <h4>{{ world_data['recovered'] }}</h4>
+          </div>
+          <div class="card deaths">
+            <h3>Deaths</h3>
+            <h4>{{ world_data['deaths'] }}</h4>
           </div>
         </div>
-
-        <div class="data-boxes col-md-6">
-          <div class="data-box">
-            <h1>Active Cases</h1>
-            <h3 class="active-cases-num">{{ active_cases }}</h3>
-          </div>
-
-          <div class="data-box">
-            <h1>Deaths</h1>
-            <h3 class="deaths-num">{{ deaths }}</h3>
-            <p class="deaths-num">{{ death_rate }}</p>
-          </div>
-
-          <div class="data-box">
-            <h1>Recovered</h1>
-            <h3 class="recovered-num">{{ recovered }}</h3>
-            <p class="recovered-num">{{ recovery_rate }}</p>
+      </div>
+      <div class="countries">
+        <div class="user-country">
+          <h2>Your Location <i class="fas fa-map-marker-alt"></i></h2>
+          <div class="card">
+            <h3>{{ user_country_data['country'] }}</h3>
+            <img class="flag" src="{{ user_country_data['flag_url'] }}" alt="Flag">
+            <p><span class="title">Total: </span>{{ user_country_data['cases'] }}</p>
+            <p><span class="title">Active: </span>{{ user_country_data['active'] }}</p>
+            <p><span class="title">Recovered: </span>{{ user_country_data['recovered'] }}</p>
+            <p><span class="title">Deaths: </span>{{ user_country_data['deaths'] }}</p>
           </div>
         </div>
-
+        <div class="countries-table">
+          <h2>All countries <i class="fas fa-globe-americas"></i></h2>
+          <div class="card">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Country</th>
+                  <th>Total</th>
+                  <th>Active</th>
+                  <th>Recovered</th>
+                  <th>Deaths</th>
+                  <th>New</th>
+                </tr>
+              </thead>
+              {% for i in range(countries_data | count) %}
+                {% set country = countries_data[i] %}
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td><img src="https://flagcdn.com/24x18/{{ country['countryInfo']['iso2'] | lower }}.png" alt="flag">{{ country['country'] }}</td>
+                  <td>{{ "{:,}".format(country['cases']) }}</td>
+                  <td>{{ "{:,}".format(country['active']) }}</td>
+                  <td class="recovered-cell">{{ "{:,}".format(country['recovered']) }}</td>
+                  <td class="deaths-cell">{{ "{:,}".format(country['deaths']) }}</td>
+                  <td>{{ "{:,}".format(country['todayCases']) }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-    
   </section>
-
-  <section id="table-section">
-    <div class="countries-table">
-      <table class="table table-bordered table-hover table-responsive-lg">
-        <thead class="thead-dark">
-          {% for row_title in row_titles %}
-              <th class="header" scope="col">{{ row_title }}</th>
-          {% endfor %}
-        </thead>
-
-        {% for i in range(countries|count) %}
-          {% set country = countries[i] %}
-
-          {% if country['cases'] == country['recovered'] %}
-              {% set row_class = 'table-success' %}
-          {% elif country['active'] == 0 %}
-              {% set row_class = 'table-secondary' %}
-          {% endif %}
-
-          <tr class="{{ row_class }}">
-            <td>{{ i+1 }}</td>
-            <td>{{ country['country'] }}</td>
-            {% for key in keys %}
-
-                {% if key == 'todayCases' and country[key] %}
-                    {% set cell_class = 'table-warning' %}
-                {% elif key == 'todayDeaths' and country[key] %}
-                    {% set cell_class = 'table-danger' %}
-                {% endif %}
-
-                <td class="{{ cell_class }}">{{ "{:,}".format(country[key]) }}</td>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-
-      </table>
-    </div>
-    <div style="margin-left: 10px;">
-        <p><span style="background-color: #8fd19e; padding: 5px;">Green</span>: all cases have recovered from covid</p>
-        <p><span style="background-color: #d6d8db; padding: 5px;">Grey</span>: all cases have had an outcome(there are no active cases)</p>
-    </div>
-  </section>
-
-  <div class="footer">
-    <h4>Covid<i class="fas fa-virus"></i>meter</h4>
-    <p>© 2021 Santhi Kumar Yadavalli.</p>
-  </div>
-
-   <div class="loader-wrapper">
-    <span class="loader"><i class="fas fa-virus fa-2x"></i></span>
-  </div>
-
   <script>
-      $(window).on("load", function(){
-        $(".loader-wrapper").fadeOut("slow");
-      });
+    $(window).on('load', function() {
+      $('#loading').fadeOut("slow");
+    });
   </script>
-
 </body>
 </html>
