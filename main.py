@@ -39,7 +39,7 @@ def get_users_location_data():
     ip_address = request.remote_addr  # User's IP address
     response = requests.get(ipgeolocation_api_endpoint, params={
         'api_key': abstract_api_key,
-        #'ip_address': ip_address,
+        'ip_address': ip_address,
         'fields': 'country,country_code,flag'
     })
     location = response.json()
