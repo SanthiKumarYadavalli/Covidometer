@@ -7,9 +7,9 @@
   <meta property="og:image" content="https://image.freepik.com/free-vector/virus-magnifier-scientific-vector-icon-disease-laboratory-research-study-analysis-concept-icon_261737-399.jpg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="static/styles.css">
   <script src="https://kit.fontawesome.com/aea2e7a38a.js" crossorigin="anonymous"></script>
-  <link rel="icon" href="images/virus.png">
+  <link rel="icon" type="image/png" href="static/virus.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <title>Covidometer</title>
 </head>
@@ -71,7 +71,6 @@
                   <th>Active</th>
                   <th>Recovered</th>
                   <th>Deaths</th>
-                  <th>New</th>
                 </tr>
               </thead>
               {% for i in range(countries_data | count) %}
@@ -83,7 +82,6 @@
                   <td>{{ "{:,}".format(country['active']) }}</td>
                   <td class="recovered-cell">{{ "{:,}".format(country['recovered']) }}</td>
                   <td class="deaths-cell">{{ "{:,}".format(country['deaths']) }}</td>
-                  <td>{{ "{:,}".format(country['todayCases']) }}</td>
                 </tr>
               {% endfor %}
             </table>

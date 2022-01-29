@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import requests
 from config import abstract_api_key
 
-app = Flask(__name__, static_folder='css', template_folder='html')
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 covid_api_endpoint = "https://disease.sh/v3/covid-19"
 ipgeolocation_api_endpoint = "https://ipgeolocation.abstractapi.com/v1"
@@ -36,7 +36,14 @@ def get_all_countries_data():
 
 def get_users_location_data():
     # Getting User's Location
-    ip_address = request.remote_addr  # User's IP address
+    if request.headers.getlist("X-Forwarded-For"):
+        ip_address = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip_address = request.remote_addr
+        
+    if ip_address == "127.0.0.1":
+        ip_address = "103.90.156.214"
+        
     response = requests.get(ipgeolocation_api_endpoint, params={
         'api_key': abstract_api_key,
         'ip_address': ip_address,
